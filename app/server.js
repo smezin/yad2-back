@@ -1,9 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 require('./db/mongoose')
 const app = express();
+
+// routes
+require('./routes/auth.routes')(app);
+require('./routes/user.routes')(app);
+
 
 var corsOptions = {
   origin: 'http://localhost:8081'
