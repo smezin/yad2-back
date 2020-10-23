@@ -1,12 +1,11 @@
 const db = require("../models");
 const dbConfig = require('../config/db.config')
 const Role = db.role;
-
+const uri = `mongodb+srv://smezin:${process.env.MONGO_PASS}@cluster0.h9kw3.mongodb.net/${process.env.MONGO_CLUSTER_NAME}?retryWrites=true&w=majority`;
 db.mongoose
-  .connect(`mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
+  .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true})
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     initial();
@@ -25,7 +24,6 @@ function initial() {
         if (err) {
           console.log("error", err);
         }
-
         console.log("added 'user' to roles collection");
       });
 
