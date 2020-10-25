@@ -1,7 +1,10 @@
 const db = require("../models");
 const dbConfig = require('../config/db.config')
 const Role = db.role;
-const uri = `mongodb+srv://smezin:${process.env.MONGO_PASS}@cluster0.h9kw3.mongodb.net/${process.env.MONGO_CLUSTER_NAME}?retryWrites=true&w=majority`;
+const password = process.env.MONGO_PASS;
+const clusterId = process.env.MONGO_CLUSTER_ID;
+const clusterName = process.env.MONGO_CLUSTER_NAME;
+const uri = `mongodb+srv://smezin:${password}@${clusterId}.mongodb.net/${clusterName}?retryWrites=true&w=majority`;
 db.mongoose
   .connect(uri, {
       useNewUrlParser: true,
