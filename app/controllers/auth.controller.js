@@ -3,16 +3,16 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 
-var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+let jwt = require("jsonwebtoken");
+let bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signup = async (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
   });
-  var token = jwt.sign({ id: user.id }, config.secret, {
+  let token = jwt.sign({ id: user.id }, config.secret, {
     expiresIn: 86400 // 24 hours
   });
   user.save((err, user) => {
@@ -24,8 +24,7 @@ exports.signup = (req, res) => {
       Role.find(
         {
           name: { $in: req.body.roles }
-        },
-        (err, roles) => {
+        }, (err, roles) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
@@ -52,7 +51,6 @@ exports.signup = (req, res) => {
           res.status(500).send({ message: err });
           return;
         }
-
         user.roles = [role._id];
         user.save(err => {
           if (err) {
@@ -72,7 +70,7 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {
+exports.signin = async (req, res) => {
   User.findOne({
     username: req.body.username
   })
@@ -87,7 +85,7 @@ exports.signin = (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      var passwordIsValid = bcrypt.compareSync(
+      let passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -99,11 +97,11 @@ exports.signin = (req, res) => {
         });
       }
 
-      var token = jwt.sign({ id: user.id }, config.secret, {
+      let token = jwt.sign({ id: user.id }, config.secret, {
         expiresIn: 86400 // 24 hours
       });
 
-      var authorities = [];
+      let authorities = [];
 
       for (let i = 0; i < user.roles.length; i++) {
         authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
@@ -117,3 +115,14 @@ exports.signin = (req, res) => {
       });
     });
 };
+
+exports.getUserById = async (req, res) => {
+  const user = User.findOne({
+    id: req.body.id
+  })
+  if (user) {
+    res.status(200).send(user)
+  } else {
+    res.status(500).send({message: "user not found"})
+  }
+}
