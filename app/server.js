@@ -7,7 +7,9 @@ require('./db/mongoose')
 const app = express();
 
 var corsOptions = {
-  origin: 'http://localhost:8081'};
+  origin: 'http://localhost:3000',
+  allow: 'POST'
+};
 
 app.use(cors(corsOptions));
 
@@ -28,7 +30,7 @@ require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
