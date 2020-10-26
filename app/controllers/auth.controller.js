@@ -12,13 +12,14 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8)
   });
-
+  var token = jwt.sign({ id: user.id }, config.secret, {
+    expiresIn: 86400 // 24 hours
+  });
   user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
     }
-
     if (req.body.roles) {
       Role.find(
         {
@@ -36,8 +37,12 @@ exports.signup = (req, res) => {
               res.status(500).send({ message: err });
               return;
             }
-
-            res.send({ message: "User was registered successfully!" });
+            res.status(201).send({
+              id: user._id,
+              username: user.username,
+              email: user.email,
+              token
+            });
           });
         }
       );
@@ -55,7 +60,12 @@ exports.signup = (req, res) => {
             return;
           }
 
-          res.send({ message: "User was registered successfully!" });
+          res.status(201).send({
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            token
+          });
         });
       });
     }
@@ -63,7 +73,6 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
-  console.log(req.body)
   User.findOne({
     username: req.body.username
   })
@@ -85,7 +94,7 @@ exports.signin = (req, res) => {
 
       if (!passwordIsValid) {
         return res.status(401).send({
-          accessToken: null,
+          token: null,
           message: "Invalid Password!"
         });
       }
@@ -104,7 +113,7 @@ exports.signin = (req, res) => {
         username: user.username,
         email: user.email,
         roles: authorities,
-        accessToken: token
+        token
       });
     });
 };
