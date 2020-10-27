@@ -115,14 +115,3 @@ exports.signin = async (req, res) => {
       });
     });
 };
-
-exports.getUserById = async (req, res) => {
-  const user = User.findOne({
-    id: req.body.id
-  })
-  if (user) {
-    res.status(200).send(user)
-  } else {
-    res.status(500).send({message: "user not found"})
-  }
-}
