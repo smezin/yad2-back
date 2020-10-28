@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const addressSchema = new Schema ({
     city: {
-        required: true,
+        required: false,
         type: String
     },
     street: {
@@ -14,11 +14,11 @@ const addressSchema = new Schema ({
 const itemSchema = new Schema ({
     address: {
         type: addressSchema,
-        required: true
+        required: false
     },
     category: {
         type: String,
-        required: true
+        required: false
     },
     rooms: {
         type: Number,

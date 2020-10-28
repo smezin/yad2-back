@@ -1,4 +1,4 @@
-
+const controller = require('../controllers/item.controller')
 module.exports = function(app) {
   app.use(function(req, res, next) {
     res.header(
