@@ -85,7 +85,7 @@ exports.signin = async (req, res) => {
         return res.status(404).send({ message: "User Not found." });
       }
 
-      let passwordIsValid = bcrypt.compareSync(
+      const passwordIsValid = bcrypt.compareSync(
         req.body.password,
         user.password
       );
@@ -101,11 +101,8 @@ exports.signin = async (req, res) => {
         expiresIn: 86400 // 24 hours
       });
 
-      let authorities = [];
-
-      for (let i = 0; i < user.roles.length; i++) {
-        authorities.push("ROLE_" + user.roles[i].name.toUpperCase());
-      }
+      const authorities = user.roles.map((role) => 'ROLE_' + role.name.toUpperCase())
+      
       res.status(200).send({
         id: user._id,
         username: user.username,
