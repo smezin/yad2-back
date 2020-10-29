@@ -8,7 +8,10 @@ const uri = `mongodb+srv://smezin:${password}@${clusterId}.mongodb.net/${cluster
 db.mongoose
   .connect(uri, {
       useNewUrlParser: true,
-      useUnifiedTopology: true})
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true
+    })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
     // initial();
@@ -17,3 +20,4 @@ db.mongoose
     console.error("Connection error", err);
     process.exit();
   });
+

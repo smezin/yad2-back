@@ -1,7 +1,6 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
-
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
@@ -20,7 +19,6 @@ exports.signup = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-   
     res.status(201).send({
       id: user._id,
       username: user.username,
@@ -35,7 +33,6 @@ exports.signin = async (req, res) => {
   User.findOne({
     username: req.body.username
   })
-
     .exec((err, user) => {
       if (err) {
         res.status(500).send({ message: err });
@@ -66,8 +63,43 @@ exports.signin = async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        mobie: user.mobile,
+        mobile: user.mobile,
         token
       });
     });
 };
+
+// exports.edit = async (req, res) => {   
+//   console.log('edit', req.body)
+//   const user = req.body.user
+//   const updates = req.body.updates 
+//   const updatesKeys = Object.keys(updates)
+//   try {
+//       User.findOne(
+//         {username: req.body.username})
+//           .exec ((err, user) => {
+//             if (err) {
+//               res.status(500).send({ message: err });
+//               return;
+//             }
+//             if (!user) {
+//               return res.status(404).send({ message: "User Not found." });
+//             }
+//             updatesKeys.forEach((update) => user[update] = updates[update])
+//             user.save((err, user) => {
+//               if (err) {
+//                 res.status(500).send({ message: err });
+//                 return;
+//               }
+//               res.status(201).send(user);
+//             });
+//           }
+//         )
+      
+//       console.log(req.body.user,'\n-----', req.body.updates, '\n----', updatesKeys)      
+//       res.status(200).send(user)
+//   } catch (e) {
+//       console.log('err: ', e)
+//       res.status(400).send
+//   }
+// }

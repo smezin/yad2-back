@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
+const authJwt = require('../middleware/authJwt')
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -13,4 +14,6 @@ module.exports = function(app) {
   app.post("/api/auth/signup",[verifySignUp.checkDuplicateUsernameOrEmail], controller.signup);
 
   app.post("/api/auth/signin", controller.signin);
+
+  //app.patch("/api/auth/me", controller.edit) //,[authJwt.verifyToken]
 };
