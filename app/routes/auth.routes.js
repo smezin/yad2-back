@@ -15,5 +15,5 @@ module.exports = function(app) {
 
   app.post("/api/auth/signin", controller.signin);
 
-  //app.patch("/api/auth/me", controller.edit) //,[authJwt.verifyToken]
+  app.patch("/api/auth/me", controller.edit) //,[authJwt.verifyToken]
 };

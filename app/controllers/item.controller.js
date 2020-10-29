@@ -8,6 +8,7 @@ exports.addItem = async (req, res) => {
             ownerMobile: req.body.ownerMobile
         })
         await item.save()
+        
         res.status(200).send(item)
     } catch (e) {
         console.log('err: ', e)
