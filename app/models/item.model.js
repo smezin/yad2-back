@@ -1,7 +1,8 @@
+const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const addressSchema = new Schema ({
+const LocationSchema = new Schema ({
     city: {
         required: false,
         type: String
@@ -12,26 +13,100 @@ const addressSchema = new Schema ({
     }
 })
 const itemSchema = new Schema ({
-    address: {
-        type: addressSchema,
+    availableImmediately: {
+        type: Boolean,
+        required: false
+    },
+    balcony: {
+        type: Boolean,
         required: false
     },
     category: {
         type: String,
         required: false
     },
-    rooms: {
-        type: Number,
-        required: false,
-        min: 1,
-        max: 12
+    dealType: {
+        type: String,
+        required: false
+    },
+    entryDate: {
+        type: String,
+        required: false
     },
     floor: {
         type: Number,
         required: false,
         min: -10,
         max: 50
-    }    
+    },
+    imageUrls: [{
+        type:String,
+        require: false
+    }],
+    isPromoted: {
+        type: Boolean,
+        required: false
+    },
+    location: {
+        type: LocationSchema,
+        required: false
+    },
+    myGender: {
+        type: String,
+        required: false
+    },
+    ownerId: {
+        type: String,
+        required: true
+    },
+    ownerMobile: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: false
+    },
+    properties: [{
+        type: String,
+        required: false
+    }],
+    propertyType: {
+        type: String,
+        required: false
+    },
+    restroom: {
+        type: String,
+        required: false
+    },
+    rooms: {
+        type: Number,
+        required: false,
+        min: 0,
+        max: 12
+    },
+    securityRoom: {
+        type: String,
+        required: false
+    },
+    size: {
+        type: Number,
+        required: false,
+        min: 0,
+        max: 10000
+    },
+    split: {
+        type: String,
+        required: false
+    },
+    storage: {
+        type: String,
+        required: false
+    },
+    text: {
+        type: String,
+        required: false
+    }     
 })
 
 const Item = mongoose.model('Item', itemSchema)
