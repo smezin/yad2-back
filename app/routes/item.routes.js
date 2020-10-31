@@ -1,4 +1,5 @@
 const controller = require('../controllers/item.controller')
+
 module.exports = function(app) {
   app.use(function(req, res, next) {
     res.header(
@@ -9,5 +10,5 @@ module.exports = function(app) {
   });
 
   app.post("/api/item/additem", controller.addItem);
-
+  app.get("/api/item/getfeed", controller.getItemsFeed);
 };

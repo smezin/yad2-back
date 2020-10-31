@@ -14,3 +14,15 @@ exports.addItem = async (req, res) => {
         res.status(400).send
     }
 }
+
+exports.getItemsFeed = async (req, res) => {
+    try {
+        const items = await Item.find({})
+        if (!items) {
+            return res.status(404).send()
+        }
+        res.status(200).send(items)
+    } catch (e) {
+        res.status(500).send()
+    }
+}
