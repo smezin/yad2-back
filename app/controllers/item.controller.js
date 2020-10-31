@@ -4,8 +4,8 @@ exports.addItem = async (req, res) => {
     try {
         const item = new Item({
             ...req.body.item.properties,
-            ownerId: req.body.ownerId,
-            ownerMobile: req.body.ownerMobile
+            ownerMobile: req.body.ownerMobile,
+            owner: req.body.ownerId
         })
         await item.save()
         

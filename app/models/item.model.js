@@ -54,9 +54,9 @@ const itemSchema = new Schema ({
         type: String,
         required: false
     },
-    ownerId: {
-        type: String,
-        required: true
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     },
     ownerMobile: {
         type: String,

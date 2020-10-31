@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
+const Item = require('./item.model');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowercase: true,
+    trim: true
   },
   
   favoriteItems: [{
@@ -30,11 +33,26 @@ const userSchema = new Schema({
     type: String,
     required: false
   }],
+  tokens: [{
+    token: {
+      type: String,
+      required: false
+    }
+  }],
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    trim: true
   },
+}, {
+  timestamps: true
+})
+
+userSchema.virtual('itemsV', {
+  ref: Item,
+  localField: '_id',
+  foreignField: 'owner'
 })
 
 const User = mongoose.model('User', userSchema)

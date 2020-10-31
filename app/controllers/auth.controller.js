@@ -80,7 +80,6 @@ exports.edit = async (req, res) => {
         res.status(500).send({ message: err });
         return;
       }
-      console.log(user);
       if (!user) {
         return res.status(414).send({ message: "User Not found." });
       }
