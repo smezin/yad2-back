@@ -26,3 +26,15 @@ exports.getItemsFeed = async (req, res) => {
         res.status(500).send()
     }
 }
+exports.getCategoryItemsFeed = async (req, res) => {
+    const category = req.params.category
+    try {
+        const items = await Item.find({category: category}).exec()
+        if (!items) {
+            return res.status(404).send()
+        }
+        res.status(200).send(items)
+    } catch (e) {
+        res.status(500).send()
+    }
+}

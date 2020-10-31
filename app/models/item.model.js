@@ -47,7 +47,7 @@ const itemSchema = new Schema ({
         required: false
     },
     location: {
-        type: LocationSchema,
+        type: String,//LocationSchema,
         required: false
     },
     myGender: {
