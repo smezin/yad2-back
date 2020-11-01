@@ -1,7 +1,12 @@
+const { LocationAddr } = require("../models/item.model")
 const Item = require("../models/item.model")
 
 exports.addItem = async (req, res) => {
     try {
+        const location = new LocationAddr({
+            city: req.body.item.properties.location.split(',')[1] || '',
+            street:req.body.item.properties.location.split(',')[0]
+        })
         const item = new Item({
             ...req.body.item.properties,
             ownerMobile: req.body.ownerMobile,
