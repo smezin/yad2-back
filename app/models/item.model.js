@@ -54,6 +54,10 @@ const itemSchema = new Schema ({
         type: locationSchema,
         required: false
     },
+    masterCategory: {
+        type: String,
+        required: true
+    },
     myGender: {
         type: String,
         required: false

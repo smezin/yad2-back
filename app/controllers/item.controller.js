@@ -34,8 +34,12 @@ exports.getItemsFeed = async (req, res) => {
 }
 exports.getCategoryItemsFeed = async (req, res) => {
     const category = req.params.category
+    const filters = {
+        category: category,
+        masterCategory: 'realestate'
+    }
     try {
-        const items = await Item.find({category: category}).exec()
+        const items = await Item.find(filters).exec()
         if (!items) {
             return res.status(404).send()
         }
