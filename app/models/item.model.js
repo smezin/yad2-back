@@ -50,6 +50,10 @@ const itemSchema = new Schema ({
         type: String,//LocationSchema,
         required: false
     },
+    locationAddr: {
+        type: locationSchema,
+        required: false
+    },
     myGender: {
         type: String,
         required: false
@@ -109,7 +113,7 @@ const itemSchema = new Schema ({
 })
 
 const Item = mongoose.model('Item', itemSchema)
-const LocationAddr = mongoose.model('location', LocationSchema)
+const LocationAddr = mongoose.model('location', locationSchema)
 module.exports = {
     Item,
     LocationAddr
