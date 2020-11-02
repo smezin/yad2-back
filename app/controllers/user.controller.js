@@ -3,7 +3,7 @@ const db = require("../models");
 const User = db.user;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { sendWelcomeEmail } = require("./email.controller");
+const { sendEmailToUser } = require("./email.controller");
 const upload = require('./aws.controller');
 const {Item} = db.item;
 const singleUpload = upload.single('image');
@@ -23,7 +23,7 @@ exports.signup = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
-    sendWelcomeEmail(user.email, user.name, 'welcome')
+    sendEmailToUser(user.email, user.name, 'welcome')
     res.status(201).send({
       id: user._id,
       username: user.username,
@@ -112,7 +112,6 @@ exports.edit = async (req, res) => {
 
 exports.uploadImage = (req, res) => {
   const uid = req.params.id;
-  console.log(uid)
   singleUpload(req, res, function (err) {
     if (err) {
       return res.json({
@@ -126,12 +125,16 @@ exports.uploadImage = (req, res) => {
     }
 
     const filters = {_id: uid}
-    const update = { imageUrls: req.file.location };
-    
-    Item.findByIdAndUpdate(filters, update, { new: true })
-      .then((item) => res.status(200).json({ success: true, item: item }))
-      .catch((err) => res.status(400).json({ success: false, error: err }));
+    //bind image to item
     Item.findOne(filters)
-      .then((item) => console.log(item)) //add functionality to reducer!!
+      .then((item) => {
+        if (item.imageUrls) {
+          item.imageUrls = [...item.imageUrls, req.file.location]
+        } else {
+          item.imageUrls = [req.file.location]
+        }
+        item.save()
+        res.status(200).json({ success: true, item: item })
+      }).catch((err) => res.status(400).json({ success: false, error: err }));
   });
 }
