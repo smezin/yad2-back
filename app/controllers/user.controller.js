@@ -129,7 +129,9 @@ exports.uploadImage = (req, res) => {
     const update = { imageUrls: req.file.location };
     
     Item.findByIdAndUpdate(filters, update, { new: true })
-      .then((user) => res.status(200).json({ success: true, user: user }))
+      .then((item) => res.status(200).json({ success: true, item: item }))
       .catch((err) => res.status(400).json({ success: false, error: err }));
+    Item.findOne(filters)
+      .then((item) => console.log(item)) //add functionality to reducer!!
   });
 }
