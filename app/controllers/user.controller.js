@@ -3,6 +3,7 @@ const db = require("../models");
 const User = db.user;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { sendWelcomeEmail } = require("./email.controller");
 
 exports.signup = async (req, res) => {
   const user = new User({
@@ -19,6 +20,7 @@ exports.signup = async (req, res) => {
       res.status(500).send({ message: err });
       return;
     }
+    sendWelcomeEmail(user.email, user.name, 'welcome')
     res.status(201).send({
       id: user._id,
       username: user.username,
