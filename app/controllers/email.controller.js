@@ -37,5 +37,5 @@ const sendEmailToUser = async (email, name, type) => {
 }
 
 module.exports = {
-  sendWelcomeEmail: sendEmailToUser
+  sendEmailToUser
 }
