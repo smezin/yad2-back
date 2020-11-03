@@ -119,7 +119,6 @@ const itemSchema = new Schema ({
     }     
 })
 
-
 itemSchema.pre('save', async function() {
     this.imageUrls = removeDuplicates(this.imageUrls);
   });

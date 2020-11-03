@@ -56,6 +56,7 @@ exports.getCategoryItemsFeed = async (req, res) => {
 
 exports.uploadImage = (req, res) => {
   const itemId = req.params.id;
+  console.log('req.body\n', req.body, itemId)
   singleUpload(req, res, function (err) {
     if (err) {
       return res.json({
