@@ -12,11 +12,7 @@ module.exports = function(app) {
   });
 
   app.post("/api/user/signup",[verifySignUp.checkDuplicateUsernameOrEmail], controller.signup);
-
   app.post("/api/user/signin", controller.signin);
-
   app.patch("/api/user/me", [authJwt.verifyToken], controller.edit) 
-
-  app.post("/api/user/upload-image/:id", controller.uploadImage)
 
 };

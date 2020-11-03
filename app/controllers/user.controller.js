@@ -4,9 +4,6 @@ const User = db.user;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { sendEmailToUser } = require("./email.controller");
-const upload = require('./aws.controller');
-const {Item} = db.item;
-const singleUpload = upload.single('image');
 
 exports.signup = async (req, res) => {
   const user = new User({
@@ -110,31 +107,3 @@ exports.edit = async (req, res) => {
   }
 };
 
-exports.uploadImage = (req, res) => {
-  const uid = req.params.id;
-  singleUpload(req, res, function (err) {
-    if (err) {
-      return res.json({
-        success: false,
-        errors: {
-          title: "Image Upload Error",
-          detail: err.message,
-          error: err,
-        },
-      });
-    }
-
-    const filters = {_id: uid}
-    //bind image to item
-    Item.findOne(filters)
-      .then((item) => {
-        if (item.imageUrls) {
-          item.imageUrls = [...item.imageUrls, req.file.location]
-        } else {
-          item.imageUrls = [req.file.location]
-        }
-        item.save()
-        res.status(200).json({ success: true, item: item })
-      }).catch((err) => res.status(400).json({ success: false, error: err }));
-  });
-}

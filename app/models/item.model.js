@@ -1,4 +1,7 @@
 const mongoose = require('mongoose')
+const { item } = require('.')
+const { deleteImage } = require('../controllers/aws.controller')
+const removeDuplicates = require('../utility/removeDuplicates')
 const Schema = mongoose.Schema
 
 const locationSchema = new Schema ({
@@ -47,7 +50,7 @@ const itemSchema = new Schema ({
         required: false
     },
     location: {
-        type: String,//LocationSchema,
+        type: String,
         required: false
     },
     locationAddr: {
@@ -115,6 +118,23 @@ const itemSchema = new Schema ({
         required: false
     }     
 })
+
+
+itemSchema.pre('save', async function() {
+    this.imageUrls = removeDuplicates(this.imageUrls);
+  });
+
+itemSchema.pre('remove', async function() {
+    if (this.imageUrls && this.imageUrls.length > 0) {
+        this.imageUrls.forEach(element => {
+            elementPartials = element.split('/')
+            elementKey = elementPartials[elementPartials.length - 1]
+            console.log(elementKey)
+            deleteImage(elementKey)
+        })
+    }   
+  })
+
 
 const Item = mongoose.model('Item', itemSchema)
 const LocationAddr = mongoose.model('location', locationSchema)
