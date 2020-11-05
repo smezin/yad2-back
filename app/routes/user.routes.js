@@ -14,5 +14,6 @@ module.exports = function(app) {
   app.post("/api/user/signup",[verifySignUp.checkDuplicateUsernameOrEmail], controller.signup);
   app.post("/api/user/signin", controller.signin);
   app.patch("/api/user/me", [authJwt.verifyToken], controller.edit) 
+  //app.patch("/api/user/remove-item", [authJwt.verifyToken], controller.removeItemFromUser) 
 
 };

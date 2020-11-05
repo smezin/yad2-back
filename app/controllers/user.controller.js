@@ -106,4 +106,32 @@ exports.edit = async (req, res) => {
     res.status(400).send;
   }
 };
+// exports.removeItemFromUser = async (req, res) => {
+//   if (typeof(req.body.updates) !== 'object') {
+//     return
+//   }
+//   try {
+//     User.findOne({ _id: req.body.userId }).exec((err, user) => {
+//       if (err) {
+//         res.status(500).send({ message: err });
+//         return;
+//       }
+//       if (!user) {
+//         return res.status(404).send({ message: "User Not found." });
+//       }
+//       console.log('user controller122', user)
+//       user.items = user.items.filter((item) => item !== req.body.itemId)
+
+//       user.save((err, user) => {
+//         if (err) {
+//           res.status(500).send({ message: err });
+//           return;
+//         }
+//         res.status(200).send(user);
+//       });
+//     });
+//   } catch (e) {
+
+//   }
+// }
 

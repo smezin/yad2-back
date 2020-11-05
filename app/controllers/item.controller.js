@@ -1,4 +1,6 @@
-const { LocationAddr, Item } = require("../models/item.model")
+const { LocationAddr, Item } = require("../models/item.model");
+const { updateOne } = require("../models/user.model");
+const User = require("../models/user.model");
 const { upload } = require('./aws.controller');
 const singleUpload = upload.single('image');
 
@@ -56,7 +58,6 @@ exports.getCategoryItemsFeed = async (req, res) => {
 
 exports.uploadImage = (req, res) => {
   const itemId = req.params.id;
-  console.log('req.body\n', req.body, itemId)
   singleUpload(req, res, function (err) {
     if (err) {
       return res.json({
@@ -85,11 +86,25 @@ exports.uploadImage = (req, res) => {
 
 exports.deleteItem = function(req, res, callback){
   const itemId = req.params.id
-  Item.findById(itemId, function (err, doc) {
+  Item.findById(itemId, function (err, item) {
       if (err) {
         res.status(400).send(e)
       }
-      doc.remove(callback);
+      const ownerId = item.owner
+      User.findById(ownerId, function (err, user) { //update user that item is deleted
+        if (err) {
+          res.status(400).send(e)
+        }
+        const newItemsArr = user.items.filter((item) => item !== itemId)
+        const filter = {_id: ownerId}
+        const update = {items: newItemsArr}
+        User.updateOne(filter, update, function (err, user) { 
+          if (err){ 
+              console.log(err) 
+          } 
+        })
+      })
+      item.remove(callback);
       res.status(200).send(itemId)
   })
 }

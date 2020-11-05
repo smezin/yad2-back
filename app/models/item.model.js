@@ -128,7 +128,6 @@ itemSchema.pre('remove', async function() {
         this.imageUrls.forEach(element => {
             elementPartials = element.split('/')
             elementKey = elementPartials[elementPartials.length - 1]
-            console.log(elementKey)
             deleteImage(elementKey)
         })
     }   
