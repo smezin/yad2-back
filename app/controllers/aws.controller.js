@@ -1,6 +1,7 @@
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const { logger } = require('../logger/winstonLogger');
 const fileFilter = require('../middleware/awsFileFilter')
 const s3 = new aws.S3();
 
@@ -21,7 +22,7 @@ const upload = multer({
       cb(null, Date.now().toString());
     },
   }),
-});
+})
 
 const deleteImage = (imageKey) => {
   const bucketInstance = new aws.S3();
@@ -31,10 +32,10 @@ const deleteImage = (imageKey) => {
   };
   bucketInstance.deleteObject(params, function (err, data) {
       if (data) {
-          console.log("File deleted successfully"); //check it out
+        logger.info("File deleted successfully")
       }
       else {
-          console.log("Check if you have sufficient permissions : "+err);
+        logger.info("Check if you have sufficient permissions : "+err);
       }
   });
 }

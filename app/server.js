@@ -1,10 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const cors = require('cors');
+require('dotenv').config()
+const winston = require('winston')
+const express = require('express')
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
 require('./db/mongoose')
-const app = express();
+const app = express()
+const {logger} = require('./logger/winstonLogger')
 
 var corsOptions = {
   origin: 'http://localhost:3000',
@@ -28,8 +30,7 @@ app.get('/', (req, res) => {
 // routes
 require('./routes/user.routes')(app);
 require('./routes/item.routes')(app);
-
-
+logger.error('popopo')
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
