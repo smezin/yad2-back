@@ -1,5 +1,5 @@
 const { LocationAddr, Item } = require("../models/item.model");
-const { updateOne } = require("../models/user.model");
+const { updateOne, findByIdAndUpdate } = require("../models/user.model");
 const User = require("../models/user.model");
 const { upload } = require('./aws.controller');
 const singleUpload = upload.single('image');
@@ -70,19 +70,7 @@ exports.uploadImage = (req, res) => {
       });
     }
     const itemId = req.params.id
-    const filters = {_id: itemId}
     bindItemToImage(itemId, req.file.location)
-    //bind image to item
-    // Item.findOne(filters)
-    //   .then((item) => {
-    //     if (item.imageUrls) {
-    //       item.imageUrls = [...item.imageUrls, req.file.location]
-    //     } else {
-    //       item.imageUrls = [req.file.location]
-    //     }
-    //     item.save()
-    //     res.status(200).json({ success: true, item: item })
-    //   }).catch((err) => res.status(400).json({ success: false, error: err }));
   });
 }
 const bindItemToImage = async (itemId, imageUrl) => {
@@ -96,34 +84,45 @@ const bindItemToImage = async (itemId, imageUrl) => {
     item.save()
     res.status(200).json({ success: true, item: item })
   } catch (e) {
-      console.log('image binding failure')
+      console.log(e)
   }
   
 }
-
-exports.deleteItem = async (req, res, callback) => {
-  const itemId = req.params.id
-  const item = await Item.findById(itemId, async (err, item) => {
+const updateUserOnItemDeletion = async (userId, itemId) => {
+  const user = await User.findById(ownerId, async (err, user) => { //update user that item is deleted
     if (err) {
       res.status(400).send(e)
     }
-    const ownerId = item.owner
-    const user = await User.findById(ownerId, async (err, user) => { //update user that item is deleted
-      if (err) {
-        res.status(400).send(e)
-      }
-      const newItemsArr = user.items.filter((item) => item.toString() !== itemId)
-      const filter = {_id: ownerId}
-      const update = {items: newItemsArr}
-      console.log(user.items, newItemsArr, itemId)
-      await User.updateOne(filter, update, function (err, user) { 
-        if (err){ 
-            console.log(err) 
-        }          
-      })
-    })    
-    item.remove(callback);
-    res.status(200).send(itemId)
-  })
+    const newItemsArr = user.items.filter((item) => item.toString() !== itemId)
+    const filter = {_id: ownerId}
+    const update = {items: newItemsArr}
+    console.log(user.items, newItemsArr, itemId)
+    await User.updateOne(filter, update, function (err, user) { 
+      if (err){ 
+          console.log(err) 
+      }          
+    })
+  })    
 }
+exports.deleteItem = async (req, res) => {
+  const itemId = req.params.id
+  const item = await Item.findById(itemId)
+  if (!item) {
+    res.status(400).send('item not found')
+  }
+  const ownerId = item.owner
+  let user = await User.findById(ownerId) //update user that item is deleted
+  if (!user) {
+    res.status(400).send('user not found')
+  }
+  
+  const newItemsArr = user.items.filter((item) => item.toString() !== itemId)
+  const update = {items: newItemsArr}
+  user = await User.findByIdAndUpdate(ownerId, update)
+  if (!user) { 
+    res.status(400).send(e)
+  }     
+  await item.remove();
+  res.status(200).send(itemId)
+  }
 
