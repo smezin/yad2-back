@@ -17,8 +17,8 @@ const userSchema = new Schema({
   }],
   items: [
     {
-      type: String,
-      required: false
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Item'
     }
   ],
   mobile: {

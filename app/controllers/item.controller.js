@@ -30,11 +30,11 @@ exports.addItem = async (req, res) => {
 
 exports.getItemsFeed = async (req, res) => {
     try {
-        const items = await Item.find({})
-        if (!items) {
-            return res.status(404).send()
-        }
-        res.status(200).send(items)
+      const items = await Item.find({})
+      if (!items) {
+          return res.status(404).send()
+      }
+      res.status(200).send(items)
     } catch (e) {
         res.status(500).send()
     }
@@ -57,8 +57,8 @@ exports.getCategoryItemsFeed = async (req, res) => {
 }
 
 exports.uploadImage = (req, res) => {
-  const itemId = req.params.id;
-  singleUpload(req, res, function (err) {
+  
+  singleUpload(req, res, (err) => {
     if (err) {
       return res.json({
         success: false,
@@ -69,43 +69,61 @@ exports.uploadImage = (req, res) => {
         },
       });
     }
+    const itemId = req.params.id
     const filters = {_id: itemId}
+    bindItemToImage(itemId, req.file.location)
     //bind image to item
-    Item.findOne(filters)
-      .then((item) => {
-        if (item.imageUrls) {
-          item.imageUrls = [...item.imageUrls, req.file.location]
-        } else {
-          item.imageUrls = [req.file.location]
-        }
-        item.save()
-        res.status(200).json({ success: true, item: item })
-      }).catch((err) => res.status(400).json({ success: false, error: err }));
+    // Item.findOne(filters)
+    //   .then((item) => {
+    //     if (item.imageUrls) {
+    //       item.imageUrls = [...item.imageUrls, req.file.location]
+    //     } else {
+    //       item.imageUrls = [req.file.location]
+    //     }
+    //     item.save()
+    //     res.status(200).json({ success: true, item: item })
+    //   }).catch((err) => res.status(400).json({ success: false, error: err }));
   });
 }
+const bindItemToImage = async (itemId, imageUrl) => {
+  try {
+    const item = await Item.findById(itemId)
+    if (item.imageUrls) {
+      item.imageUrls = [...item.imageUrls, imageUrl]
+    } else {
+      item.imageUrls = [imageUrl]
+    }
+    item.save()
+    res.status(200).json({ success: true, item: item })
+  } catch (e) {
+      console.log('image binding failure')
+  }
+  
+}
 
-exports.deleteItem = function(req, res, callback){
+exports.deleteItem = async (req, res, callback) => {
   const itemId = req.params.id
-  Item.findById(itemId, function (err, item) {
+  const item = await Item.findById(itemId, async (err, item) => {
+    if (err) {
+      res.status(400).send(e)
+    }
+    const ownerId = item.owner
+    const user = await User.findById(ownerId, async (err, user) => { //update user that item is deleted
       if (err) {
         res.status(400).send(e)
       }
-      const ownerId = item.owner
-      User.findById(ownerId, function (err, user) { //update user that item is deleted
-        if (err) {
-          res.status(400).send(e)
-        }
-        const newItemsArr = user.items.filter((item) => item !== itemId)
-        const filter = {_id: ownerId}
-        const update = {items: newItemsArr}
-        User.updateOne(filter, update, function (err, user) { 
-          if (err){ 
-              console.log(err) 
-          } 
-        })
+      const newItemsArr = user.items.filter((item) => item.toString() !== itemId)
+      const filter = {_id: ownerId}
+      const update = {items: newItemsArr}
+      console.log(user.items, newItemsArr, itemId)
+      await User.updateOne(filter, update, function (err, user) { 
+        if (err){ 
+            console.log(err) 
+        }          
       })
-      item.remove(callback);
-      res.status(200).send(itemId)
+    })    
+    item.remove(callback);
+    res.status(200).send(itemId)
   })
 }
 
