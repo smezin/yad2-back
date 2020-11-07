@@ -1,21 +1,31 @@
+const winston = require('winston')
 const { format, createLogger, transports } = require('winston');
 
-const messageFormat = {
+const fileMessageFormat = {
   format: format.combine(
+    format.timestamp({format: 'DD-MM-YYYY HH:mm:ss'}),
     format.json(),
-    format.timestamp({format: 'DD-MM-YYYY HH:mm:ss'})
+      
   )
 }
+const consoleMessageFormat = {
+  format: format.combine(
+    format.colorize(),
+    format.simple()    
+  )
+}
+winston.addColors({
+  error: 'red',
+  warn: 'yellow',
+  info: 'green',
+  debug: 'cyan'
+});
 const logger = createLogger({
   level: 'info',
-  defaultMeta: { service: 'user-service' },
+  //defaultMeta: { service: 'user-service' },
   transports: [
-    //
-    // - Write all logs with level `error` and below to `error.log`
-    // - Write all logs with level `info` and below to `combined.log`
-    //
-    new transports.File({ filename: 'logger/error.log', level: 'error', ...messageFormat }),
-    new transports.File({ filename: 'logger/combined.log', ...messageFormat }),
+    new transports.File({ filename: 'logger/error.log', level: 'warn', ...fileMessageFormat }),
+    new transports.File({ filename: 'logger/combined.log', ...fileMessageFormat }),
   ],
 });
  
@@ -24,6 +34,9 @@ const logger = createLogger({
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (process.env.NODE_ENV !== 'production') {
-  logger.add(new transports.Console(messageFormat))
+  logger.add(new transports.Console(consoleMessageFormat))
 }
+
+
+
 module.exports = {logger}

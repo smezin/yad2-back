@@ -1,17 +1,23 @@
-const db = require("../models");
+const { logger } = require('../logger/winstonLogger');
+const db = require('../models');
 const User = db.user;
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-  // Username
+  if (!req.body || !req.body.username) {
+    logger.error(`bad request. no username/req body provided`)
+    res.status(400).send()
+  }  
   User.findOne({
     username: req.body.username
   }).exec((err, user) => {
     if (err) {
+      logger.error(`counld not find user: ${err}`)
       res.status(500).send({ message: err });
       return;
     }
     if (user) {
-      res.status(400).send({ message: "Failed! Username is already in use!" });
+      logger.error('Failed signup, username is already in use')
+      res.status(400).send({ message: 'Failed signup, username is already in use' });
       return;
     } 
     // Email
@@ -23,7 +29,8 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
         return
       }
       if (user) {
-        res.status(400).send({ message: "Failed! Email is already in use!" });
+        logger.error('Failed signup, email is already in use')
+        res.status(400).send({ message: 'Failed signup, email is already in use' });
         return;
       }
 

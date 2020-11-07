@@ -4,6 +4,7 @@ const User = db.user;
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { sendEmailToUser } = require("./email.controller");
+const { logger } = require("../logger/winstonLogger");
 
 exports.signup = async (req, res) => {
   const user = new User({
@@ -17,6 +18,7 @@ exports.signup = async (req, res) => {
   });
   user.save((err, user) => {
     if (err) {
+      logger.error(`error saving user: ${err}`)
       res.status(500).send({ message: err });
       return;
     }
@@ -36,12 +38,14 @@ exports.signin = async (req, res) => {
     username: req.body.username,
   }).exec((err, user) => {
     if (err) {
+      logger.error(`error finding user: ${err}`)
       res.status(500).send({ message: err });
       return;
     }
 
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      logger.error("user not found");
+      return res.status(404).send();
     }
 
     const passwordIsValid = bcrypt.compareSync(
@@ -50,6 +54,7 @@ exports.signin = async (req, res) => {
     );
 
     if (!passwordIsValid) {
+      logger.warn('sign in failure, inavlid password')
       return res.status(401).send({
         token: null,
         message: "Invalid Password!",
@@ -71,7 +76,7 @@ exports.signin = async (req, res) => {
 };
 
 exports.edit = async (req, res) => {
-  if (typeof(req.body.updates) !== 'object') {
+  if (!req || !req.body || typeof(req.body.updates) !== 'object') {
     return
   }
   const updates = req.body.updates;
@@ -79,11 +84,13 @@ exports.edit = async (req, res) => {
   try {
     User.findOne({ username: req.body.user.username }).exec((err, user) => {
       if (err) {
+        logger.error(`could not find user: ${err}`);
         res.status(500).send({ message: err });
         return;
       }
       if (!user) {
-        return res.status(414).send({ message: "User Not found." });
+        logger.error("user not found");
+        return res.status(404).send();
       }
       updatesKeys.forEach((update) => {
         if (typeof(user[update]) === 'string') {
@@ -95,6 +102,7 @@ exports.edit = async (req, res) => {
 
       user.save((err, user) => {
         if (err) {
+          logger.error(`could not save user: ${err}`)
           res.status(500).send({ message: err });
           return;
         }
@@ -102,36 +110,7 @@ exports.edit = async (req, res) => {
       });
     });
   } catch (e) {
-    console.log("err: ", e);
+    logger.error(`could not edit user: ${e}`)
     res.status(400).send;
   }
 };
-// exports.removeItemFromUser = async (req, res) => {
-//   if (typeof(req.body.updates) !== 'object') {
-//     return
-//   }
-//   try {
-//     User.findOne({ _id: req.body.userId }).exec((err, user) => {
-//       if (err) {
-//         res.status(500).send({ message: err });
-//         return;
-//       }
-//       if (!user) {
-//         return res.status(404).send({ message: "User Not found." });
-//       }
-//       console.log('user controller122', user)
-//       user.items = user.items.filter((item) => item !== req.body.itemId)
-
-//       user.save((err, user) => {
-//         if (err) {
-//           res.status(500).send({ message: err });
-//           return;
-//         }
-//         res.status(200).send(user);
-//       });
-//     });
-//   } catch (e) {
-
-//   }
-// }
-

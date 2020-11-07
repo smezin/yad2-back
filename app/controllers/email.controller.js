@@ -1,4 +1,5 @@
 const sgMail = require('@sendgrid/mail')
+const { logger } = '../logger/winstonLogger'
 const sgAPIKey = process.env.SENDGRID_API_KEY
 sgMail.setApiKey(sgAPIKey)
 const appEmail = 'smezin@gmail.com'
@@ -28,10 +29,9 @@ const sendEmailToUser = async (email, name, type) => {
   try {
     await sgMail.send(welcomeMessage);
   } catch (error) {
-    console.error(error);
- 
+    logger.error(`send mail error :${error}`) 
     if (error.response) {
-      console.error(error.response.body)
+      logger.error(`send mail error ${error.response.body}`)
     }
   }
 }

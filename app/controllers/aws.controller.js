@@ -1,7 +1,7 @@
 const aws = require('aws-sdk');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
-const { logger } = require('../logger/winstonLogger');
+const { logger } = require('../logger/winstonLogger')
 const fileFilter = require('../middleware/awsFileFilter')
 const s3 = new aws.S3();
 
@@ -35,7 +35,7 @@ const deleteImage = (imageKey) => {
         logger.info("File deleted successfully")
       }
       else {
-        logger.info("Check if you have sufficient permissions : "+err);
+        logger.warn(`Check if you have sufficient permissions : ${err}`)
       }
   });
 }

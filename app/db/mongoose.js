@@ -1,5 +1,6 @@
-const db = require("../models");
-const dbConfig = require('../config/db.config')
+const db = require('../models');
+const dbConfig = require('../config/db.config');
+const { logger } = require('../logger/winstonLogger');
 const Role = db.role;
 const password = process.env.MONGO_PASS;
 const clusterId = process.env.MONGO_CLUSTER_ID;
@@ -13,10 +14,10 @@ db.mongoose
       useCreateIndex: true
     })
   .then(() => {
-    console.log("Successfully connect to MongoDB.");
+    logger.info('Successfully connect to MongoDB.')
   })
   .catch(err => {
-    console.error("Connection error", err);
+    logger.error(`could not connect to mongoDB: ${err}`)
     process.exit();
   });
 
