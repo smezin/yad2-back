@@ -1,2 +1,12 @@
 {"message":"Server is running on port 8080.","level":"info","timestamp":"07-11-2020 22:51:42"}
 {"message":"Successfully connect to MongoDB.","level":"info","timestamp":"07-11-2020 22:51:43"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"07-11-2020 23:01:04"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"07-11-2020 23:01:05"}
+{"message":"bad request. no file location sent","level":"error","timestamp":"07-11-2020 23:01:55"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"07-11-2020 23:04:19"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"07-11-2020 23:04:20"}
+{"message":"File deleted successfully","level":"info","timestamp":"07-11-2020 23:04:31"}
+{"message":"item sent with no location/address info","level":"info","timestamp":"07-11-2020 23:05:32"}
+{"message":"File deleted successfully","level":"info","timestamp":"07-11-2020 23:06:42"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"07-11-2020 23:10:31"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"07-11-2020 23:10:34"}

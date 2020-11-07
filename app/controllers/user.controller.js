@@ -1,12 +1,16 @@
-const config = require("../config/auth.config");
-const db = require("../models");
+const config = require('../config/auth.config');
+const db = require('../models');
 const User = db.user;
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const { sendEmailToUser } = require("./email.controller");
-const { logger } = require("../logger/winstonLogger");
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { sendEmailToUser } = require('./email.controller');
+const { logger } = require('../logger/winstonLogger');
 
 exports.signup = async (req, res) => {
+  if (!req || !req.body) {
+    logger.error('bad request. missing body/user object')
+    res.status(400).send()
+  }
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -34,6 +38,10 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = async (req, res) => {
+  if (!req || !req.body) {
+    logger.error('bad request. missing body/user object')
+    res.status(400).send()
+  }
   User.findOne({
     username: req.body.username,
   }).exec((err, user) => {
@@ -44,7 +52,7 @@ exports.signin = async (req, res) => {
     }
 
     if (!user) {
-      logger.error("user not found");
+      logger.warn('user not found');
       return res.status(404).send();
     }
 
@@ -54,10 +62,10 @@ exports.signin = async (req, res) => {
     );
 
     if (!passwordIsValid) {
-      logger.warn('sign in failure, inavlid password')
+      logger.info('sign in failure, inavlid password')
       return res.status(401).send({
         token: null,
-        message: "Invalid Password!",
+        message: 'Invalid Password!',
       });
     }
 
@@ -77,7 +85,8 @@ exports.signin = async (req, res) => {
 
 exports.edit = async (req, res) => {
   if (!req || !req.body || typeof(req.body.updates) !== 'object') {
-    return
+    logger.warn('bad request. missing body/user object/upadtes')
+    res.status(400).send()
   }
   const updates = req.body.updates;
   const updatesKeys = Object.keys(updates);
@@ -89,7 +98,7 @@ exports.edit = async (req, res) => {
         return;
       }
       if (!user) {
-        logger.error("user not found");
+        logger.warn('user not found');
         return res.status(404).send();
       }
       updatesKeys.forEach((update) => {
@@ -102,7 +111,7 @@ exports.edit = async (req, res) => {
 
       user.save((err, user) => {
         if (err) {
-          logger.error(`could not save user: ${err}`)
+          logger.warn(`could not save user: ${err}`)
           res.status(500).send({ message: err });
           return;
         }
