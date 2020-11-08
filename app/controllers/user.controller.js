@@ -40,27 +40,24 @@ exports.signup = async (req, res) => {
 exports.signin = async (req, res) => {
   if (!req || !req.body) {
     logger.error('bad request. missing body/user object')
-    res.status(400).send()
+    return res.status(400).send()
   }
   User.findOne({
     username: req.body.username,
   }).exec((err, user) => {
     if (err) {
       logger.error(`error finding user: ${err}`)
-      res.status(500).send({ message: err });
-      return;
+      return res.status(500).send({ message: err });
     }
 
     if (!user) {
       logger.warn('user not found');
       return res.status(404).send();
     }
-
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
       user.password
-    );
-
+    )
     if (!passwordIsValid) {
       logger.info('sign in failure, inavlid password')
       return res.status(401).send({
@@ -68,11 +65,9 @@ exports.signin = async (req, res) => {
         message: 'Invalid Password!',
       });
     }
-
     let token = jwt.sign({ id: user.id }, config.secret, {
       expiresIn: 86400, // 24 hours
     });
-
     res.status(200).send({
       id: user._id,
       username: user.username,
@@ -86,6 +81,10 @@ exports.signin = async (req, res) => {
 exports.edit = async (req, res) => {
   if (!req || !req.body || typeof(req.body.updates) !== 'object') {
     logger.warn('bad request. missing body/user object/upadtes')
+    res.status(400).send()
+  }
+  if (typeof(req.body.user) !== 'object') {
+    logger.warn('bad request. invalid user parameter')
     res.status(400).send()
   }
   const updates = req.body.updates;

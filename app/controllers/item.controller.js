@@ -73,6 +73,28 @@ exports.getCategoryItemsFeed = async (req, res) => {
     res.status(500).send();
   }
 };
+exports.getUserItemsFeed = async (req, res) => {
+  if (!req || !req.params) {
+    logger.warn('bad request. missing data/params')
+    res.status(400).send()
+  }
+  const userId = req.params.userId;
+  const filters = {
+    owner: userId,
+    masterCategory: 'realestate',
+  };
+  try {
+    const items = await Item.find(filters).exec();
+    if (!items) {
+      logger.warn('item not found');
+      return res.status(404).send();
+    }
+    res.status(200).send(items);
+  } catch (e) {
+    logger.error(`could not fetch feed by category: ${e}`);
+    res.status(500).send();
+  }
+};
 
 exports.uploadImage = (req, res) => {
   if (!req.file || req.file.location) {
@@ -92,7 +114,7 @@ exports.uploadImage = (req, res) => {
       });
     }
     const itemId = req.params.id;
-    bindItemToImage(itemId, req.file.location);
+    req.file && bindItemToImage(itemId, req.file.location);
     res.status(200);
   });
 };
@@ -118,14 +140,14 @@ exports.deleteItem = async (req, res) => {
   const itemId = req.params.id;
   const item = await Item.findById(itemId);
   if (!item) {
-    ogger.warn('item not found')
-    res.status(400).send('item not found');
+    logger.warn('item not found')
+    return res.status(400).send('item not found');
   }
   const ownerId = item.owner;
   let user = await User.findById(ownerId); //update user that item is deleted
   if (!user) {
     logger.warn('user not found')
-    res.status(400).send('user not found');
+    return res.status(400).send('user not found');
   }
 
   const newItemsArr = user.items.filter((item) => item.toString() !== itemId);
@@ -133,7 +155,7 @@ exports.deleteItem = async (req, res) => {
   user = await User.findByIdAndUpdate(ownerId, update);
   if (!user) {
     logger.warn(`user to update not found ${e}`);
-    res.status(400).send(e);
+    return res.status(400).send(e);
   }
   await item.remove();
   logger.info('item removed')

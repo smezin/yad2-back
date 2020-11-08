@@ -10,3 +10,59 @@
 {"message":"File deleted successfully","level":"info","timestamp":"07-11-2020 23:06:42"}
 {"message":"Server is running on port 8080.","level":"info","timestamp":"07-11-2020 23:10:31"}
 {"message":"Successfully connect to MongoDB.","level":"info","timestamp":"07-11-2020 23:10:34"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 09:25:38"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 09:25:41"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 09:25:56"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 09:26:04"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 09:26:04"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 09:28:36"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 09:28:38"}
+{"message":"item not found","level":"warn","timestamp":"08-11-2020 09:28:41"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 09:29:30"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 09:29:31"}
+{"message":"item not found","level":"warn","timestamp":"08-11-2020 09:29:33"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 09:32:39"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 09:49:48"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 11:20:00"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 11:21:17"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 12:22:58"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 12:32:23"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 14:11:40"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 14:11:41"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 14:12:04"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 14:30:14"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 14:30:56"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 14:30:57"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 14:31:17"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 15:52:06"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 15:52:07"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:27:30"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:27:30"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:27:32"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:27:32"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:27:33"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:27:33"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:28:06"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:28:06"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:28:07"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:28:07"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:28:07"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:28:08"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:28:08"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:28:08"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 16:28:09"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 16:28:09"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 21:06:35"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 21:08:25"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 21:08:26"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 22:15:26"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 22:15:27"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"08-11-2020 22:22:21"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"08-11-2020 22:22:22"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 22:42:23"}
+{"message":"File deleted successfully","level":"info","timestamp":"08-11-2020 22:42:23"}
+{"message":"item removed","level":"info","timestamp":"08-11-2020 22:42:23"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 22:46:31"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 22:48:59"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 22:50:14"}
+{"message":"item sent with no image","level":"info","timestamp":"08-11-2020 22:51:46"}

@@ -1,3 +1,4 @@
+const { Timestamp } = require('mongodb')
 const mongoose = require('mongoose')
 const { item } = require('.')
 const { deleteImage } = require('../controllers/aws.controller')
@@ -116,7 +117,9 @@ const itemSchema = new Schema ({
     text: {
         type: String,
         required: false
-    }     
+    } 
+}, {
+    timestamps: true 
 })
 
 itemSchema.pre('save', async function() {
