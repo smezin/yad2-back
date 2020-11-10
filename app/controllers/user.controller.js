@@ -132,9 +132,7 @@ exports.addFavorite = async (req, res) => {
     }
     if (user.favoriteItems.includes(req.body.itemId)) {
       const newArr = user.favoriteItems.filter((item) => {
-        console.log(item, req.body.itemId)
-        return item.toString().localeCompare(req.body.itemId.toString()) })
-      console.log(newArr)
+        return !!item.toString().localeCompare(req.body.itemId.toString()) })
       user.favoriteItems = newArr
     } else {
       user.favoriteItems = [...user.favoriteItems, req.body.itemId]
@@ -142,7 +140,31 @@ exports.addFavorite = async (req, res) => {
     await user.save()
     res.status(200).send(user);
   } catch (e){
-    logger.error(`could not add favorite item to user: ${e}`)
-    res.status(400).send;
+      logger.error(`could not add favorite item to user: ${e}`)
+      res.status(400).send;
+  }
+}
+exports.getFavorite = async (req, res) => {
+  if (!req || !req.body || typeof(req.body.itemId) !== 'string') {
+    logger.warn('bad request. missing body/user object/upadtes')
+    res.status(400).send()
+  }
+  if (typeof(req.body.userId) !== 'string') {
+    logger.warn(`bad get favorite request. invalid user parameter`)
+    res.status(400).send()
+  }
+  try {
+    const user = await User.findById(userId)
+    if (!user) {
+      logger.warn('cannot getFavorite, user not found')
+      return status(404).send()
+    }
+    if (user.favoriteItems.includes(req.body.itemId)) {
+      status(200).send(true)
+    } else {
+      status(200).send(false)
+    }
+  } catch (e) {
+    logger.error(e)
   }
 }
