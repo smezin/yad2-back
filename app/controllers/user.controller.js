@@ -42,17 +42,11 @@ exports.signin = async (req, res) => {
     logger.error('bad request. missing body/user object')
     return res.status(400).send()
   }
-  User.findOne({
-    username: req.body.username,
-  }).exec((err, user) => {
-    if (err) {
-      logger.error(`error finding user: ${err}`)
-      return res.status(500).send({ message: err });
-    }
-
+  try {
+    const user = await User.findOne({username: req.body.username})
     if (!user) {
-      logger.warn('user not found');
-      return res.status(404).send();
+      logger.warn('signin - user not found')
+      return res.status(404).send()
     }
     const passwordIsValid = bcrypt.compareSync(
       req.body.password,
@@ -75,7 +69,10 @@ exports.signin = async (req, res) => {
       mobile: user.mobile,
       token,
     });
-  });
+  } catch (e) {
+    logger.error(`signin error: ${e}`)
+    res.status(500).send()
+  }
 };
 
 exports.edit = async (req, res) => {
@@ -119,7 +116,6 @@ exports.edit = async (req, res) => {
 };
 
 exports.addFavorite = async (req, res) => {
-  //console.log('add fav', req.body.userId, req.body.itemId)
   if (!req || !req.body || typeof(req.body.itemId) !== 'string') {
     logger.warn('bad request. missing body/user object/upadtes')
     res.status(400).send()
@@ -134,7 +130,15 @@ exports.addFavorite = async (req, res) => {
       logger.error(`user not found on addFavorite request`);
       return res.status(404).send();
     }
-    user.favoriteItems = [...user.favoriteItems, req.body.itemId]
+    if (user.favoriteItems.includes(req.body.itemId)) {
+      const newArr = user.favoriteItems.filter((item) => {
+        console.log(item, req.body.itemId)
+        return item.toString().localeCompare(req.body.itemId.toString()) })
+      console.log(newArr)
+      user.favoriteItems = newArr
+    } else {
+      user.favoriteItems = [...user.favoriteItems, req.body.itemId]
+    }    
     await user.save()
     res.status(200).send(user);
   } catch (e){

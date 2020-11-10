@@ -1,0 +1,4 @@
+{"message":"could not add favorite item to user: TypeError: item.localeCompare is not a function","level":"error","timestamp":"10-11-2020 09:59:32"}
+{"message":"could not add favorite item to user: TypeError: item.localeCompare is not a function","level":"error","timestamp":"10-11-2020 10:01:32"}
+{"message":"signin error: Error: Illegal arguments: string, undefined","level":"error","timestamp":"10-11-2020 10:04:16"}
+{"message":"signin error: Error: Illegal arguments: string, undefined","level":"error","timestamp":"10-11-2020 10:04:30"}

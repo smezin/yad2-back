@@ -4,3 +4,29 @@
 {"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:32:11"}
 {"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:37:29"}
 {"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:37:30"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:39:31"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:39:32"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:49:54"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:49:55"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:50:48"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:50:49"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:52:16"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:52:17"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:54:12"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:54:12"}
+{"message":"item removed","level":"info","timestamp":"10-11-2020 09:54:56"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:57:01"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:57:02"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 09:58:27"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 09:58:28"}
+{"message":"could not add favorite item to user: TypeError: item.localeCompare is not a function","level":"error","timestamp":"10-11-2020 09:59:32"}
+{"message":"could not add favorite item to user: TypeError: item.localeCompare is not a function","level":"error","timestamp":"10-11-2020 10:01:32"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 10:02:21"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 10:02:25"}
+{"message":"signin error: Error: Illegal arguments: string, undefined","level":"error","timestamp":"10-11-2020 10:04:16"}
+{"message":"signin error: Error: Illegal arguments: string, undefined","level":"error","timestamp":"10-11-2020 10:04:30"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"10-11-2020 10:06:48"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"10-11-2020 10:06:49"}
+{"message":"item sent with no image","level":"info","timestamp":"10-11-2020 10:07:18"}
+{"message":"item removed","level":"info","timestamp":"10-11-2020 10:10:31"}
+{"message":"item sent with no image","level":"info","timestamp":"10-11-2020 10:11:22"}
