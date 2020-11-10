@@ -80,11 +80,11 @@ exports.signin = async (req, res) => {
 
 exports.edit = async (req, res) => {
   if (!req || !req.body || typeof(req.body.updates) !== 'object') {
-    logger.warn('bad request. missing body/user object/upadtes')
+    logger.warn('bad edit request. missing body/user object/upadtes')
     res.status(400).send()
   }
   if (typeof(req.body.user) !== 'object') {
-    logger.warn('bad request. invalid user parameter')
+    logger.warn(`bad request. invalid user parameter`)
     res.status(400).send()
   }
   const updates = req.body.updates;
@@ -97,20 +97,15 @@ exports.edit = async (req, res) => {
         return;
       }
       if (!user) {
-        logger.warn('user not found');
+        logger.warn('user not found on edit request');
         return res.status(404).send();
       }
-      updatesKeys.forEach((update) => {
-        if (typeof(user[update]) === 'string') {
-          user[update] = updates[update]
-        } else if (Array.isArray(user[update])) {
-          user[update].push(updates[update])
-        }
+      updatesKeys.forEach((updateKey) => {
+        user[updateKey] = updates[updateKey]
       });
-
       user.save((err, user) => {
         if (err) {
-          logger.warn(`could not save user: ${err}`)
+          logger.warn(`could not save user after edit: ${err}`)
           res.status(500).send({ message: err });
           return;
         }
@@ -122,3 +117,28 @@ exports.edit = async (req, res) => {
     res.status(400).send;
   }
 };
+
+exports.addFavorite = async (req, res) => {
+  //console.log('add fav', req.body.userId, req.body.itemId)
+  if (!req || !req.body || typeof(req.body.itemId) !== 'string') {
+    logger.warn('bad request. missing body/user object/upadtes')
+    res.status(400).send()
+  }
+  if (typeof(req.body.userId) !== 'string') {
+    logger.warn(`bad add favorite request. invalid user parameter`)
+    res.status(400).send()
+  }
+  try {
+    const user = await User.findById(req.body.userId)
+    if (!user) {
+      logger.error(`user not found on addFavorite request`);
+      return res.status(404).send();
+    }
+    user.favoriteItems = [...user.favoriteItems, req.body.itemId]
+    await user.save()
+    res.status(200).send(user);
+  } catch (e){
+    logger.error(`could not add favorite item to user: ${e}`)
+    res.status(400).send;
+  }
+}

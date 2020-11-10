@@ -11,10 +11,12 @@ const userSchema = new Schema({
     trim: true
   },
   
-  favoriteItems: [{
-      type: String,
-      required: false
-  }],
+  favoriteItems:  [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Item'
+    }
+  ],
   items: [
     {
       type: mongoose.Schema.Types.ObjectId,

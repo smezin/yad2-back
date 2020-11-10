@@ -4,7 +4,7 @@ const { logger } = require("../logger/winstonLogger.js");
 
 verifyToken = (req, res, next) => {
   if (!req || !req.body || !req.body.user) {
-    logger.error(`inavlid request`)
+    logger.error(`inavlid token verification request`)
     return res.status(400).send(`bad request`)
   }
   let token = req.headers["x-access-token"] || req.body.user.token;  
