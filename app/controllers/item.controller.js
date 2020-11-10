@@ -51,6 +51,7 @@ exports.getItemsFeed = async (req, res) => {
     res.status(500).send();
   }
 };
+
 exports.getCategoryItemsFeed = async (req, res) => {
   if (!req || !req.params) {
     logger.warn('bad request. missing data/params')
