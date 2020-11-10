@@ -63,10 +63,13 @@ exports.signin = async (req, res) => {
       expiresIn: 86400, // 24 hours
     });
     res.status(200).send({
-      id: user._id,
-      username: user.username,
       email: user.email,
+      favoriteItems: user.favoriteItems,
+      items: user.items,
+      id: user._id,
       mobile: user.mobile,
+      previousSearches: user.previousSearches,
+      username: user.username,      
       token,
     });
   } catch (e) {
@@ -121,7 +124,7 @@ exports.addFavorite = async (req, res) => {
     res.status(400).send()
   }
   if (typeof(req.body.userId) !== 'string') {
-    logger.warn(`bad add favorite request. invalid user parameter`)
+    logger.warn(`bad add favorite request. invalid user parameter ${req.body.userId}`)
     res.status(400).send()
   }
   try {
@@ -166,5 +169,22 @@ exports.getFavorite = async (req, res) => {
     }
   } catch (e) {
     logger.error(e)
+  }
+}
+exports.getUserByName = async (req, res) => {
+  if (!req || !req.params) {
+    logger.warn('bad request. missing data/params')
+    res.status(400).send()
+  }
+  const username = req.params.username;
+  try {
+    const user = await User.findOne({username: username})
+    if (!user) {
+      logger.warn('get user. user not found')
+      return res.status(404).send()
+    }
+    res.status(200).send(user)
+  } catch (e) {
+    logger.error(`get user failed: ${e}`)
   }
 }

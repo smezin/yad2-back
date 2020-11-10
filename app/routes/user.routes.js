@@ -14,8 +14,8 @@ module.exports = function(app) {
   app.post("/api/user/signup",[verifySignUp.checkDuplicateUsernameOrEmail], controller.signup);
   app.post("/api/user/signin", controller.signin);
   app.patch("/api/user/me", [authJwt.verifyToken], controller.edit) 
-  app.patch("/api/user/add-favorite", [authJwt.verifyToken], controller.addFavorite)
-  app.get("/api/user/get-is-favorite", controller.get-is-favorite)
+  app.patch("/api/user/add-favorite", controller.addFavorite)
+  app.get("/api/user/get/:username", controller.getUserByName)
   //app.patch("/api/user/remove-item", [authJwt.verifyToken], controller.removeItemFromUser) 
 
 };
