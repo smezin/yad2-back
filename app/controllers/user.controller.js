@@ -119,6 +119,7 @@ exports.edit = async (req, res) => {
 };
 
 exports.addFavorite = async (req, res) => {
+  console.log('addItemToFavorites')
   if (!req || !req.body || typeof(req.body.itemId) !== 'string') {
     logger.warn('bad request. missing body/user object/upadtes')
     res.status(400).send()
@@ -144,7 +145,7 @@ exports.addFavorite = async (req, res) => {
     res.status(200).send(user);
   } catch (e){
       logger.error(`could not add favorite item to user: ${e}`)
-      res.status(400).send;
+      res.status(400).send();
   }
 }
 exports.getFavorite = async (req, res) => {

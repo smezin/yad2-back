@@ -29,3 +29,45 @@
 {"message":"getItem failed: TypeError: Converting circular structure to JSON\n    --> starting at object with constructor 'NativeTopology'\n    |     property 's' -> object with constructor 'Object'\n    |     property 'sessionPool' -> object with constructor 'ServerSessionPool'\n    --- property 'topology' closes the circle","level":"error","timestamp":"11-11-2020 11:23:22"}
 {"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 11:24:03"}
 {"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 11:24:04"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 11:28:06"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 11:28:07"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 112 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:34:47"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 219 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:35:34"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 286 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:36:55"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 353 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:37:03"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 387 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:37:55"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 399 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:37:56"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 625 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:43:45"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 626 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:43:46"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 638 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:45:15"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 642 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:45:16"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 643 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:45:16"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 644 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:45:16"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 654 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:45:18"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 755 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:47:20"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 785 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:56:41"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 880 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:56:53"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 955 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 15:57:36"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:00:19"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:00:21"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1048 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:00:38"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1149 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:01:24"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1178 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:01:29"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1179 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:01:29"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1184 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:01:30"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:03:07"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:03:08"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1201 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:03:15"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:03:33"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:03:33"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:05:27"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:05:28"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1515 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:06:20"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1518 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:06:20"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1522 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:06:21"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:07:49"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:07:51"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1623 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:15:46"}
+{"message":"could not add favorite item to user: VersionError: No matching document found for id \"5faaac8f03565f24f4e8eb9f\" version 1630 modifiedPaths \"favoriteItems\"","level":"error","timestamp":"11-11-2020 16:15:47"}
+{"message":"Server is running on port 8080.","level":"info","timestamp":"11-11-2020 16:18:53"}
+{"message":"Successfully connect to MongoDB.","level":"info","timestamp":"11-11-2020 16:18:54"}
