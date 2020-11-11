@@ -10,8 +10,8 @@ module.exports = function(app) {
   });
 
   app.post("/api/item/additem", controller.addItem);
+  app.get("/api/item/getitem/:itemId", controller.getItem);
   app.get("/api/item/getfeed", controller.getItemsFeed);
-  app.get("/api/item/get-promoted", controller.getPromotedItems)
   app.get("/api/item/getfeed/:category", controller.getCategoryItemsFeed)
   app.get("/api/item/getUserfeed/:userId", controller.getUserItemsFeed)
   app.post("/api/item/upload-image/:id", controller.uploadImage)

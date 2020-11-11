@@ -37,7 +37,23 @@ exports.addItem = async (req, res) => {
       res.status(400).send;
   }
 };
-
+exports.getItem = async (req, res) => {
+  if (!req || !req.params) {
+    logger.warn('getItem bad request. missing data/params')
+    res.status(400).send()
+  }
+  const itemId = req.params.itemId;
+  try {
+    const item = await Item.findById(itemId)
+    if (!item) {
+      logger.warn('getItem item not found')
+      res.status(404).send()
+    }
+    res.status(200).send(item)
+  } catch (e) {
+    logger.error(`getItem failed: ${e}`)
+  }
+}
 exports.getItemsFeed = async (req, res) => {
   try {
     const items = await Item.find({});
@@ -54,7 +70,7 @@ exports.getItemsFeed = async (req, res) => {
 
 exports.getCategoryItemsFeed = async (req, res) => {
   if (!req || !req.params) {
-    logger.warn('bad request. missing data/params')
+    logger.warn('getCategoryItemsFeed bad request. missing data/params')
     res.status(400).send()
   }
   const category = req.params.category;
