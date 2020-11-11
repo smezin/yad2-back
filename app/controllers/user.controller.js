@@ -28,10 +28,13 @@ exports.signup = async (req, res) => {
     }
     sendEmailToUser(user.email, user.name, 'welcome')
     res.status(201).send({
-      id: user._id,
-      username: user.username,
       email: user.email,
+      favoriteItems: [],
+      id: user._id,
+      items: [],
       mobile: user.mobile,
+      previousSearches: [],
+      username: user.username,   
       token,
     });
   });
@@ -119,7 +122,6 @@ exports.edit = async (req, res) => {
 };
 
 exports.addFavorite = async (req, res) => {
-  console.log('addItemToFavorites')
   if (!req || !req.body || typeof(req.body.itemId) !== 'string') {
     logger.warn('bad request. missing body/user object/upadtes')
     res.status(400).send()
