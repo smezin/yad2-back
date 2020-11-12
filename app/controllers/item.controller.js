@@ -53,66 +53,7 @@ exports.getItem = async (req, res) => {
   } catch (e) {
     logger.error(`getItem failed: ${e}`)
   }
-}
-exports.getItemsFeed = async (req, res) => {
-  try {
-    const items = await Item.find({});
-    if (!items) {
-      logger.warn('item not found');
-      return res.status(404).send();
-    }
-    res.status(200).send(items);
-  } catch (e) {
-    logger.error(`could not fetch feed: ${e}`);
-    res.status(500).send();
-  }
 };
-
-exports.getCategoryItemsFeed = async (req, res) => {
-  if (!req || !req.params) {
-    logger.warn('getCategoryItemsFeed bad request. missing data/params')
-    res.status(400).send()
-  }
-  const category = req.params.category;
-  const filters = {
-    category: category,
-    masterCategory: 'realestate',
-  };
-  try {
-    const items = await Item.find(filters).exec();
-    if (!items) {
-      logger.warn('item not found');
-      return res.status(404).send();
-    }
-    res.status(200).send(items);
-  } catch (e) {
-    logger.error(`could not fetch feed by category: ${e}`);
-    res.status(500).send();
-  }
-};
-exports.getUserItemsFeed = async (req, res) => {
-  if (!req || !req.params) {
-    logger.warn('bad request. missing data/params')
-    res.status(400).send()
-  }
-  const userId = req.params.userId;
-  const filters = {
-    owner: userId,
-    masterCategory: 'realestate',
-  };
-  try {
-    const items = await Item.find(filters).exec();
-    if (!items) {
-      logger.warn('item not found');
-      return res.status(404).send();
-    }
-    res.status(200).send(items);
-  } catch (e) {
-    logger.error(`could not fetch feed by category: ${e}`);
-    res.status(500).send();
-  }
-};
-
 exports.uploadImage = (req, res) => {
   if (!req.file || req.file.location) {
     logger.info('item sent with no image')
@@ -152,7 +93,6 @@ const bindItemToImage = async (itemId, imageUrl) => {
     logger.error(`bind item to image failed. ${e}`);
   }
 };
-
 exports.deleteItem = async (req, res) => {
   const itemId = req.params.id;
   const item = await Item.findById(itemId);
