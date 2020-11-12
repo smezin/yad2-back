@@ -12,4 +12,5 @@ module.exports = function(app) {
   app.get("/api/feed/getfeed", controller.getItemsFeed);
   app.get("/api/feed/getfeed/:category", controller.getCategoryItemsFeed)
   app.get("/api/feed/getUserfeed/:userId", controller.getUserItemsFeed)
+  app.post("/api/feed/getFilteredFeed", controller.getFilteredFeed)
 };

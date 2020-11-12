@@ -1,13 +1,12 @@
 const { logger } = require('../logger/winstonLogger');
 const { Item } = require('../models/item.model');
-const { upload } = require('./aws.controller');
-
+const convertFiltersToMongoose = require('../utility/convertFiltersToMongoose');
 
 exports.getItemsFeed = async (req, res) => {
   try {
     const items = await Item.find({});
     if (!items) {
-      logger.warn('item not found');
+      logger.warn('getItemsFeed item not found');
       return res.status(404).send();
     }
     res.status(200).send(items);
@@ -28,12 +27,12 @@ exports.getCategoryItemsFeed = async (req, res) => {
     masterCategory: 'realestate',
   };
   try {
-    const items = await Item.find(filters).exec();
-    if (!items) {
-      logger.warn('item not found');
+    const feed = await Item.find(filters).exec();
+    if (!feed) {
+      logger.warn('getCategoryItemsFeed item not found');
       return res.status(404).send();
     }
-    res.status(200).send(items);
+    res.status(200).send(feed);
   } catch (e) {
     logger.error(`could not fetch feed by category: ${e}`);
     res.status(500).send();
@@ -41,7 +40,7 @@ exports.getCategoryItemsFeed = async (req, res) => {
 };
 exports.getUserItemsFeed = async (req, res) => {
   if (!req || !req.params) {
-    logger.warn('bad request. missing data/params')
+    logger.warn('bad getUserItemsFeed request. missing data/params')
     res.status(400).send()
   }
   const userId = req.params.userId;
@@ -50,14 +49,31 @@ exports.getUserItemsFeed = async (req, res) => {
     masterCategory: 'realestate',
   };
   try {
-    const items = await Item.find(filters).exec();
-    if (!items) {
-      logger.warn('item not found');
+    const feed = await Item.find(filters).exec();
+    if (!feed) {
+      logger.warn('getUserItemsFeed item not found');
       return res.status(404).send();
     }
-    res.status(200).send(items);
+    res.status(200).send(feed);
   } catch (e) {
     logger.error(`could not fetch feed by category: ${e}`);
     res.status(500).send();
   }
 };
+exports.getFilteredFeed = async (req, res) => {
+  if (!req || !req.body) {
+    logger.warn('bad getFilteredFeed request. missing body')
+    res.status(400).send()
+  }
+  const filters = (convertFiltersToMongoose(req.body))
+  try {
+    const feed = await Item.find(filters).exec();
+    if (!feed) {
+      logger.warn('getFilteredFeed item not found');
+      return res.status(404).send();
+    }
+    res.status(200).send(feed)
+  } catch (e) {
+
+  }
+}
