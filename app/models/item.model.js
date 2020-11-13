@@ -121,6 +121,7 @@ const itemSchema = new Schema ({
 }, {
     timestamps: true 
 })
+itemSchema.index({name: 'text', 'description': 'text'});
 
 itemSchema.pre('save', async function() {
     this.imageUrls = removeDuplicates(this.imageUrls);

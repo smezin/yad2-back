@@ -1,4 +1,5 @@
 const convertFiltersToMongoose = (filters) => {
+  //console.log(filters)
   const mongooseFilters = {
     masterCategory: "realestate",
     $and: [
@@ -55,12 +56,21 @@ const convertFiltersToMongoose = (filters) => {
       },
       {
         $or: [
+          {properties: {$all: filters.properties}},
+          {properties: {$exists: !filters.properties}}
+        ]
+      },
+      {
+        $or: [
           {propertyType: {$in: filters.propertyTypes}},
           {propertyType: {$exists: !filters.propertyTypes}}
         ]
       },
       {
         category: {$eq: filters.category}
+      },
+      {
+        $text: {$search: filters.text}
       }
     ]
     
