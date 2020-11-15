@@ -69,9 +69,9 @@ const convertFiltersToMongoose = (filters) => {
       {
         category: {$eq: filters.category}
       },
-      {
-        $text: {$search: filters.text}
-      }
+      // {
+      //   $text: {$search: filters.text}
+      // }
     ]
     
   }
